@@ -5,58 +5,126 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ZazaRapTexto</title>
     <style>
-        body { font-family: Arial, sans-serif; background-color: #121212; color: white; margin: 0; padding: 0; text-align: center; }
-        header { background-color: #e50914; padding: 15px; font-size: 24px; font-weight: bold; }
-        .slogan { background-color: #1f1f1f; padding: 10px; font-size: 15px; font-weight: bold; color: #f5c518; border-bottom: 2px solid #e50914; }
-        .card { background-color: #1e1e1e; margin: 15px; padding: 15px; border-radius: 10px; }
-        .vs-box { display: flex; justify-content: space-around; align-items: center; margin-top: 15px; }
-        .artist { width: 42%; background: #2a2a2a; padding: 10px; border-radius: 8px; }
-        button { background-color: #e50914; color: white; border: none; padding: 10px 15px; border-radius: 5px; font-weight: bold; margin-top: 10px; cursor: pointer; width: 100%; }
-        .song { background: #2a2a2a; margin: 10px 0; padding: 10px; border-radius: 8px; text-align: left; }
-        audio { width: 100%; margin-top: 8px; }
+        body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; background: #0d0d0d; color: #fff; margin: 0; padding-bottom: 75px; }
+        header { background: linear-gradient(135deg, #e50914, #8b0000); padding: 18px 15px; text-align: center; box-shadow: 0 4px 15px rgba(229,9,20,0.4); }
+        header h1 { margin: 0; font-size: 24px; letter-spacing: 1px; }
+        header p { margin: 5px 0 0; font-size: 13px; color: #f5c518; font-weight: bold; }
+        .section { display: none; padding: 15px; animation: fadeIn 0.3s; }
+        .section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .card { background: #1a1a1a; border: 1px solid #2c2c2c; border-radius: 12px; padding: 15px; margin-bottom: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+        .song-card { display: flex; flex-direction: column; background: #222; border-left: 4px solid #e50914; border-radius: 10px; padding: 12px; margin-bottom: 12px; }
+        .song-header { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+        .cover { width: 55px; height: 55px; border-radius: 8px; background: linear-gradient(45deg, #e50914, #f5c518); display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: bold; }
+        audio { width: 100%; height: 38px; border-radius: 20px; }
+        .btn { background: linear-gradient(90deg, #e50914, #b20710); color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; width: 100%; margin-top: 8px; cursor: pointer; font-size: 14px; }
+        .btn-dl { background: linear-gradient(90deg, #1db954, #15883e); }
+        input, textarea { width: 93%; padding: 12px; margin: 6px 0; border-radius: 8px; border: 1px solid #333; background: #121212; color: white; font-size: 14px; }
+        .lyric-box { background: #222; border-left: 4px solid #f5c518; padding: 14px; border-radius: 10px; margin-bottom: 12px; }
+        .nav-bar { position: fixed; bottom: 0; width: 100%; background: #141414; display: flex; justify-content: space-around; border-top: 1px solid #333; padding: 10px 0; z-index: 100; }
+        .nav-item { color: #888; font-size: 13px; text-align: center; cursor: pointer; font-weight: bold; width: 50%; transition: 0.2s; }
+        .nav-item.active { color: #e50914; transform: scale(1.05); }
+        .nav-icon { font-size: 20px; display: block; margin-bottom: 2px; }
     </style>
 </head>
 <body>
 
-<header>🔥 ZazaRapTexto 🔥</header>
-<div class="slogan">🎤 Moozik Rap Syga Kolontsaina M'lay 🎤</div>
+<header>
+    <h1>🔥 ZazaRapTexto 🔥</h1>
+    <p>🎤 Moozik Rap Syga Kolontsaina M'lay 🎤</p>
+</header>
 
-<div class="card">
-    <h2>⚔️ ZazaRapTaiza ⚔️</h2>
-    <p>Fidio izay tianao indrindra!</p>
-    <div class="vs-box">
-        <div class="artist">
-            <h3>Mpanakanto 1</h3>
-            <p id="v1">Vato: 0</p>
-            <button onclick="vote(1)">Hifidy</button>
+<!-- PEJY 1: HIRA MP3 -->
+<div id="tab-music" class="section active">
+    <div class="card">
+        <h3 style="margin-top:0; color:#f5c518;">🎧 HIRA RAP MALAGASY VAOVAO</h3>
+        <div id="musicList">
+            <div class="song-card">
+                <div class="song-header">
+                    <div class="cover">🎵</div>
+                    <div>
+                        <strong style="font-size:16px;">Rap Gasy - Kolontsaina M'lay</strong><br>
+                        <span style="font-size:12px; color:#aaa;">ZazaRapTexto Exclusive • MP3</span>
+                    </div>
+                </div>
+                <audio controls src="https://soundhelix.com"></audio>
+                <a href="https://soundhelix.com" download target="_blank" style="text-decoration:none;">
+                    <button class="btn btn-dl">⬇ Maka Hira (Télécharger MP3)</button>
+                </a>
+            </div>
         </div>
-        <h2>VS</h2>
-        <div class="artist">
-            <h3>Mpanakanto 2</h3>
-            <p id="v2">Vato: 0</p>
-            <button onclick="vote(2)">Hifidy</button>
+    </div>
+
+    <div class="card">
+        <h3 style="margin-top:0;">➕ Handefa Hira MP3</h3>
+        <input type="text" id="mTitle" placeholder="Mpanakanto - Lohatenin'ny hira...">
+        <input type="text" id="mUrl" placeholder="Rohy MP3 (Mediafire / Google Drive)...">
+        <button class="btn" onclick="postMusic()">🚀 Alefa ny Hira</button>
+    </div>
+</div>
+
+<!-- PEJY 2: TONONKIRA (LYRICS) -->
+<div id="tab-lyrics" class="section">
+    <div class="card">
+        <h3 style="margin-top:0; color:#f5c518;">✍️ HANDATSAKA TONONKIRA (LYRICS)</h3>
+        <input type="text" id="lTitle" placeholder="Mpanakanto - Lohatenin'ny hira...">
+        <textarea id="lBody" rows="5" placeholder="Soraty na apetaho eto ny tononkira feno..."></textarea>
+        <button class="btn" onclick="postLyric()">📝 Avoaka ny Tononkira</button>
+    </div>
+
+    <div id="lyricsFeed">
+        <div class="lyric-box">
+            <strong style="color:#f5c518; font-size:16px;">🎤 ZazaRapTexto - Feon'ny Tanora</strong>
+            <p style="white-space: pre-line; color:#e0e0e0; line-height:1.5; margin-bottom:0;">Tsy kivy izahay na mafy aza ny dia,
+Mozika Rap no entina mitondra fitia,
+Kolontsaina m'lay tsy mba maty vonoina,
+ZazaRapTexto no feo tsy hay hadinoina...</p>
         </div>
     </div>
 </div>
 
-<div class="card">
-    <h2>🎵 HIRA VAOVAO 🎵</h2>
-    <div class="song">
-        <strong>1. Hira Malagasy Rap - Lohateny 1</strong>
-        <audio controls src="https://soundhelix.com"></audio>
+<!-- MENU AMBANY -->
+<div class="nav-bar">
+    <div class="nav-item active" onclick="switchTab('tab-music', this)">
+        <span class="nav-icon">🎵</span>Hira MP3
+    </div>
+    <div class="nav-item" onclick="switchTab('tab-lyrics', this)">
+        <span class="nav-icon">📝</span>Tononkira
     </div>
 </div>
 
 <script>
-    let count1 = 0;
-    let count2 = 0;
-    function vote(n) {
-        if(n === 1) { count1++; document.getElementById('v1').innerText = "Vato: " + count1; }
-        if(n === 2) { count2++; document.getElementById('v2').innerText = "Vato: " + count2; }
-        alert("Misaotra nifidy tao amin'ny ZazaRapTexto!");
+    function switchTab(id, el) {
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        el.classList.add('active');
+    }
+    function postMusic() {
+        let t = document.getElementById('mTitle').value;
+        let u = document.getElementById('mUrl').value;
+        if(!t || !u) return alert("Fenoy aloha ny lohateny sy ny rohy MP3!");
+        let div = document.createElement('div');
+        div.className = 'song-card';
+        div.innerHTML = `<div class="song-header"><div class="cover">🎵</div><div><strong style="font-size:16px;">${t}</strong><br><span style="font-size:12px; color:#aaa;">Hira Vaovao • MP3</span></div></div><audio controls src="${u}"></audio><a href="${u}" download target="_blank" style="text-decoration:none;"><button class="btn btn-dl">⬇ Maka Hira (MP3)</button></a>`;
+        document.getElementById('musicList').prepend(div);
+        document.getElementById('mTitle').value = '';
+        document.getElementById('mUrl').value = '';
+        alert("Tafiditra soa aman-tsara ny hiranao!");
+    }
+    function postLyric() {
+        let t = document.getElementById('lTitle').value;
+        let b = document.getElementById('lBody').value;
+        if(!t || !b) return alert("Fenoy ny lohateny sy ny tononkira!");
+        let div = document.createElement('div');
+        div.className = 'lyric-box';
+        div.innerHTML = `<strong style="color:#f5c518; font-size:16px;">🎤 ${t}</strong><p style="white-space: pre-line; color:#e0e0e0; line-height:1.5; margin-bottom:0;">${b}</p>`;
+        document.getElementById('lyricsFeed').prepend(div);
+        document.getElementById('lTitle').value = '';
+        document.getElementById('lBody').value = '';
+        alert("Tafiditra soa aman-tsara ny tononkira!");
     }
 </script>
 
 </body>
-  </html>
-  
+</html>
