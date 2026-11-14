@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="mg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZazaRapTexto</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #121212; color: white; margin: 0; padding: 0; text-align: center; }
+        header { background-color: #e50914; padding: 15px; font-size: 24px; font-weight: bold; }
+        .slogan { background-color: #1f1f1f; padding: 10px; font-size: 15px; font-weight: bold; color: #f5c518; border-bottom: 2px solid #e50914; }
+        .card { background-color: #1e1e1e; margin: 15px; padding: 15px; border-radius: 10px; }
+        .vs-box { display: flex; justify-content: space-around; align-items: center; margin-top: 15px; }
+        .artist { width: 42%; background: #2a2a2a; padding: 10px; border-radius: 8px; }
+        button { background-color: #e50914; color: white; border: none; padding: 10px 15px; border-radius: 5px; font-weight: bold; margin-top: 10px; cursor: pointer; width: 100%; }
+        .song { background: #2a2a2a; margin: 10px 0; padding: 10px; border-radius: 8px; text-align: left; }
+        audio { width: 100%; margin-top: 8px; }
+    </style>
+</head>
+<body>
+
+<header>🔥 ZazaRapTexto 🔥</header>
+<div class="slogan">🎤 Moozik Rap Syga Kolontsaina M'lay 🎤</div>
+
+<div class="card">
+    <h2>⚔️ ZazaRapTaiza ⚔️</h2>
+    <p>Fidio izay tianao indrindra!</p>
+    <div class="vs-box">
+        <div class="artist">
+            <h3>Mpanakanto 1</h3>
+            <p id="v1">Vato: 0</p>
+            <button onclick="vote(1)">Hifidy</button>
+        </div>
+        <h2>VS</h2>
+        <div class="artist">
+            <h3>Mpanakanto 2</h3>
+            <p id="v2">Vato: 0</p>
+            <button onclick="vote(2)">Hifidy</button>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <h2>🎵 HIRA VAOVAO 🎵</h2>
+    <div class="song">
+        <strong>1. Hira Malagasy Rap - Lohateny 1</strong>
+        <audio controls src="https://soundhelix.com"></audio>
+    </div>
+</div>
+
+<script>
+    let count1 = 0;
+    let count2 = 0;
+    function vote(n) {
+        if(n === 1) { count1++; document.getElementById('v1').innerText = "Vato: " + count1; }
+        if(n === 2) { count2++; document.getElementById('v2').innerText = "Vato: " + count2; }
+        alert("Misaotra nifidy tao amin'ny ZazaRapTexto!");
+    }
+</script>
+
+</body>
+  </html>
+  
