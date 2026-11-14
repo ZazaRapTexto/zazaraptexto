@@ -5,27 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ZazaRapTexto</title>
     <style>
-        body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; background: #0d0d0d; color: #fff; margin: 0; padding-bottom: 75px; }
-        header { background: linear-gradient(135deg, #e50914, #8b0000); padding: 18px 15px; text-align: center; box-shadow: 0 4px 15px rgba(229,9,20,0.4); }
-        header h1 { margin: 0; font-size: 24px; letter-spacing: 1px; }
-        header p { margin: 5px 0 0; font-size: 13px; color: #f5c518; font-weight: bold; }
-        .section { display: none; padding: 15px; animation: fadeIn 0.3s; }
+        body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; background: #0d0d0d; color: #fff; margin: 0; padding-bottom: 80px; }
+        header { background: linear-gradient(135deg, #e50914, #8b0000); padding: 16px; text-align: center; box-shadow: 0 4px 15px rgba(229,9,20,0.4); }
+        header h1 { margin: 0; font-size: 22px; }
+        header p { margin: 4px 0 0; font-size: 12px; color: #f5c518; font-weight: bold; }
+        .section { display: none; padding: 14px; }
         .section.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .card { background: #1a1a1a; border: 1px solid #2c2c2c; border-radius: 12px; padding: 15px; margin-bottom: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
-        .song-card { display: flex; flex-direction: column; background: #222; border-left: 4px solid #e50914; border-radius: 10px; padding: 12px; margin-bottom: 12px; }
-        .song-header { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
-        .cover { width: 50px; height: 50px; border-radius: 8px; background: linear-gradient(45deg, #e50914, #f5c518); display: flex; align-items: center; justify-content: center; font-size: 22px; }
-        audio { width: 100%; height: 38px; border-radius: 20px; }
+        .card { background: #1a1a1a; border: 1px solid #2c2c2c; border-radius: 12px; padding: 14px; margin-bottom: 14px; }
+        .badge { background: #e50914; color: #fff; padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: bold; display: inline-block; margin-bottom: 6px; }
+        .song-card { background: #222; border-left: 4px solid #e50914; border-radius: 10px; padding: 12px; margin-bottom: 12px; }
+        .cover-img { width: 100%; max-height: 220px; object-fit: cover; border-radius: 8px; margin-bottom: 10px; }
+        audio { width: 100%; height: 38px; margin-top: 6px; }
         .btn { background: linear-gradient(90deg, #e50914, #b20710); color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; width: 100%; margin-top: 8px; cursor: pointer; font-size: 14px; }
         .btn-dl { background: linear-gradient(90deg, #1db954, #15883e); }
-        input, textarea { width: 93%; padding: 12px; margin: 6px 0; border-radius: 8px; border: 1px solid #333; background: #121212; color: white; font-size: 14px; }
+        input, textarea, select { width: 94%; padding: 11px; margin: 6px 0; border-radius: 8px; border: 1px solid #333; background: #121212; color: white; font-size: 14px; }
+        select { width: 100%; }
         .lyric-box { background: #222; border-left: 4px solid #f5c518; padding: 14px; border-radius: 10px; margin-bottom: 12px; }
-        .chat-box { background: #222; border-radius: 10px; padding: 10px 14px; margin-bottom: 10px; border-left: 3px solid #1db954; }
+        .post-box { background: #222; border-left: 4px solid #1db954; padding: 14px; border-radius: 10px; margin-bottom: 12px; }
+        .status-msg { text-align: center; font-size: 13px; color: #f5c518; margin-top: 8px; font-weight: bold; }
         .nav-bar { position: fixed; bottom: 0; width: 100%; background: #141414; display: flex; justify-content: space-around; border-top: 1px solid #333; padding: 10px 0; z-index: 100; }
-        .nav-item { color: #888; font-size: 12px; text-align: center; cursor: pointer; font-weight: bold; width: 33.3%; transition: 0.2s; }
-        .nav-item.active { color: #e50914; transform: scale(1.05); }
-        .nav-icon { font-size: 20px; display: block; margin-bottom: 2px; }
+        .nav-item { color: #888; font-size: 11px; text-align: center; cursor: pointer; font-weight: bold; width: 25%; }
+        .nav-item.active { color: #e50914; }
+        .nav-icon { font-size: 19px; display: block; margin-bottom: 2px; }
     </style>
 </head>
 <body>
@@ -35,55 +36,66 @@
     <p>🎤 Moozik Rap Syga Kolontsaina M'lay 🎤</p>
 </header>
 
-<!-- PEJY 1: HIRA MP3 -->
+<!-- 1. HIRA (SINGLE / ALBUM / EP) -->
 <div id="tab-music" class="section active">
     <div class="card">
-        <h3 style="margin-top:0; color:#f5c518;">🎧 HIRA RAP MALAGASY</h3>
-        <div id="musicList"><p style="color:#888; font-size:13px;">Maka ny hira avy amin'ny serveur...</p></div>
-    </div>
-
-    <div class="card">
-        <h3 style="margin-top:0;">➕ Handefa Hira MP3 (Hitan'ny rehetra)</h3>
+        <h3 style="margin-top:0; color:#f5c518;">➕ HANDEFA SINGLE / ALBUM / EP</h3>
+        <select id="mType">
+            <option value="SINGLE">🎵 Single (Hira iray)</option>
+            <option value="ALBUM">💿 Album</option>
+            <option value="EP">📀 EP</option>
+        </select>
         <input type="text" id="mTitle" placeholder="Mpanakanto - Lohatenin'ny hira...">
-        <input type="text" id="mUrl" placeholder="Rohy MP3 (Mediafire / Google Drive)...">
+        <input type="text" id="mCover" placeholder="Rohy Sary Pochette (tsy voatery)...">
+        <input type="text" id="mUrl" placeholder="Rohy MP3 (Mediafire / Drive)...">
         <button class="btn" onclick="postMusic()">🚀 Alefa ny Hira</button>
+        <div id="mStatus" class="status-msg"></div>
     </div>
+    <div id="musicList"><p style="color:#888; text-align:center;">Maka ny hira...</p></div>
 </div>
 
-<!-- PEJY 2: TONONKIRA (LYRICS) -->
+<!-- 2. TONONKIRA -->
 <div id="tab-lyrics" class="section">
     <div class="card">
-        <h3 style="margin-top:0; color:#f5c518;">✍️ HANDATSAKA TONONKIRA (Hitan'ny rehetra)</h3>
+        <h3 style="margin-top:0; color:#f5c518;">✍️ HANDATSAKA TONONKIRA</h3>
         <input type="text" id="lTitle" placeholder="Mpanakanto - Lohatenin'ny hira...">
-        <textarea id="lBody" rows="5" placeholder="Soraty na apetaho eto ny tononkira feno..."></textarea>
+        <textarea id="lBody" rows="5" placeholder="Soraty na apetaho eto ny tononkira..."></textarea>
         <button class="btn" onclick="postLyric()">📝 Avoaka ny Tononkira</button>
+        <div id="lStatus" class="status-msg"></div>
     </div>
-
-    <div id="lyricsFeed"><p style="color:#888; font-size:13px; text-align:center;">Maka ny tononkira...</p></div>
+    <div id="lyricsFeed"><p style="color:#888; text-align:center;">Maka ny tononkira...</p></div>
 </div>
 
-<!-- PEJY 3: RESAKA (CHAT TANORA) -->
+<!-- 3. POSTE SARY & VAOVAO -->
+<div id="tab-posts" class="section">
+    <div class="card">
+        <h3 style="margin-top:0; color:#1db954;">📸 HANDATSAKA SARY & VAOVAO</h3>
+        <input type="text" id="pAuthor" placeholder="Anaran'ny Mpanakanto / Pejy...">
+        <input type="text" id="pImg" placeholder="Rohy Sary (https://...jpg / png)...">
+        <textarea id="pText" rows="3" placeholder="Soraty eto ny hafatra na vaovao..."></textarea>
+        <button class="btn btn-dl" onclick="postFeed()">📤 Avoaka ny Poste</button>
+        <div id="pStatus" class="status-msg"></div>
+    </div>
+    <div id="postsFeed"></div>
+</div>
+
+<!-- 4. RESAKA (CHAT) -->
 <div id="tab-chat" class="section">
     <div class="card">
-        <h3 style="margin-top:0; color:#1db954;">💬 RESAKA & FANOHANANA RAP GASY</h3>
-        <input type="text" id="cName" placeholder="Ny anaranao / Pseudo...">
-        <input type="text" id="cMsg" placeholder="Soraty eto ny hafatrao...">
-        <button class="btn btn-dl" onclick="postChat()">📩 Alefa ny Hafatra</button>
+        <h3 style="margin-top:0; color:#1db954;">💬 RESAKA RAP GASY</h3>
+        <input type="text" id="cName" placeholder="Ny anaranao...">
+        <input type="text" id="cMsg" placeholder="Hafatrao...">
+        <button class="btn btn-dl" onclick="postChat()">📩 Alefa</button>
+        <div id="cStatus" class="status-msg"></div>
     </div>
     <div id="chatFeed"></div>
 </div>
 
-<!-- MENU AMBANY -->
 <div class="nav-bar">
-    <div class="nav-item active" onclick="switchTab('tab-music', this)">
-        <span class="nav-icon">🎵</span>Hira MP3
-    </div>
-    <div class="nav-item" onclick="switchTab('tab-lyrics', this)">
-        <span class="nav-icon">📝</span>Tononkira
-    </div>
-    <div class="nav-item" onclick="switchTab('tab-chat', this)">
-        <span class="nav-icon">💬</span>Resaka
-    </div>
+    <div class="nav-item active" onclick="switchTab('tab-music', this)"><span class="nav-icon">💿</span>Hira/Album</div>
+    <div class="nav-item" onclick="switchTab('tab-lyrics', this)"><span class="nav-icon">📝</span>Tononkira</div>
+    <div class="nav-item" onclick="switchTab('tab-posts', this)"><span class="nav-icon">📸</span>Poste Sary</div>
+    <div class="nav-item" onclick="switchTab('tab-chat', this)"><span class="nav-icon">💬</span>Resaka</div>
 </div>
 
 <script>
@@ -104,11 +116,10 @@
             mList.innerHTML = '';
             if(dM) {
                 Object.values(dM).reverse().forEach(s => {
-                    mList.innerHTML += `<div class="song-card"><div class="song-header"><div class="cover">🎵</div><div><strong style="font-size:16px;">${s.title}</strong><br><span style="font-size:12px; color:#aaa;">ZazaRapTexto • MP3</span></div></div><audio controls src="${s.url}"></audio><a href="${s.url}" download target="_blank" style="text-decoration:none;"><button class="btn btn-dl">⬇ Maka Hira (Télécharger MP3)</button></a></div>`;
+                    let imgHtml = s.cover ? `<img src="${s.cover}" class="cover-img" onerror="this.style.display='none'">` : '';
+                    mList.innerHTML += `<div class="song-card">${imgHtml}<span class="badge">${s.type || 'SINGLE'}</span><div style="font-size:16px; font-weight:bold;">${s.title}</div><audio controls src="${s.url}"></audio><a href="${s.url}" download target="_blank" style="text-decoration:none;"><button class="btn btn-dl">⬇ Maka Hira (MP3)</button></a></div>`;
                 });
-            } else {
-                mList.innerHTML = `<p style="color:#aaa; font-size:13px;">Mbola tsy misy hira. Alefaso ny hira voalohany eto ambany!</p>`;
-            }
+            } else { mList.innerHTML = `<p style="color:#888; text-align:center;">Mbola tsy misy hira.</p>`; }
 
             let rL = await fetch(`${DB_URL}/lyrics.json`);
             let dL = await rL.json();
@@ -116,10 +127,19 @@
             lFeed.innerHTML = '';
             if(dL) {
                 Object.values(dL).reverse().forEach(l => {
-                    lFeed.innerHTML += `<div class="lyric-box"><strong style="color:#f5c518; font-size:16px;">🎤 ${l.title}</strong><p style="white-space: pre-line; color:#e0e0e0; line-height:1.5; margin-bottom:0;">${l.body}</p></div>`;
+                    lFeed.innerHTML += `<div class="lyric-box"><strong style="color:#f5c518; font-size:16px;">🎤 ${l.title}</strong><p style="white-space:pre-line; color:#eee; line-height:1.5; margin-bottom:0;">${l.body}</p></div>`;
                 });
-            } else {
-                lFeed.innerHTML = `<p style="color:#aaa; font-size:13px; text-align:center;">Mbola tsy misy tononkira. Soraty eto ambony!</p>`;
+            } else { lFeed.innerHTML = `<p style="color:#888; text-align:center;">Mbola tsy misy tononkira.</p>`; }
+
+            let rP = await fetch(`${DB_URL}/posts.json`);
+            let dP = await rP.json();
+            let pFeed = document.getElementById('postsFeed');
+            pFeed.innerHTML = '';
+            if(dP) {
+                Object.values(dP).reverse().forEach(p => {
+                    let imgHtml = p.img ? `<img src="${p.img}" class="cover-img" onerror="this.style.display='none'">` : '';
+                    pFeed.innerHTML += `<div class="post-box"><strong style="color:#1db954;">👤 ${p.author}</strong><p style="color:#eee; margin:6px 0;">${p.text}</p>${imgHtml}</div>`;
+                });
             }
 
             let rC = await fetch(`${DB_URL}/chats.json`);
@@ -128,46 +148,29 @@
             cFeed.innerHTML = '';
             if(dC) {
                 Object.values(dC).reverse().forEach(c => {
-                    cFeed.innerHTML += `<div class="chat-box"><strong style="color:#1db954; font-size:14px;">👤 ${c.name}</strong><p style="margin:4px 0 0; color:#eee; font-size:14px;">${c.msg}</p></div>`;
+                    cFeed.innerHTML += `<div class="post-box"><strong style="color:#1db954;">💬 ${c.name}</strong><p style="margin:4px 0 0; color:#eee;">${c.msg}</p></div>`;
                 });
             }
-        } catch(e) { console.log(e); }
+        } catch(e) {
+            document.getElementById('musicList').innerHTML = `<p style="color:#e50914; text-align:center;">Tsy tafiditra ny connexion serveur.</p>`;
+        }
     }
 
     async function postMusic() {
+        let st = document.getElementById('mStatus');
+        let type = document.getElementById('mType').value;
         let t = document.getElementById('mTitle').value.trim();
+        let c = document.getElementById('mCover').value.trim();
         let u = document.getElementById('mUrl').value.trim();
-        if(!t || !u) return alert("Fenoy aloha ny lohateny sy ny rohy MP3!");
-        await fetch(`${DB_URL}/songs.json`, { method: 'POST', body: JSON.stringify({ title: t, url: u }) });
+        if(!t || !u) { st.innerText = "⚠️ Fenoy ny lohateny sy ny rohy MP3!"; return; }
+        st.innerText = "⏳ Mandefa...";
+        await fetch(`${DB_URL}/songs.json`, { method: 'POST', body: JSON.stringify({ type: type, title: t, cover: c, url: u }) });
         document.getElementById('mTitle').value = '';
+        document.getElementById('mCover').value = '';
         document.getElementById('mUrl').value = '';
-        alert("Tafiditra soa aman-tsara ary hitan'ny rehetra ny hiranao!");
+        st.innerText = "✅ Tafiditra soa aman-tsara!";
         loadAll();
     }
 
     async function postLyric() {
-        let t = document.getElementById('lTitle').value.trim();
-        let b = document.getElementById('lBody').value.trim();
-        if(!t || !b) return alert("Fenoy ny lohateny sy ny tononkira!");
-        await fetch(`${DB_URL}/lyrics.json`, { method: 'POST', body: JSON.stringify({ title: t, body: b }) });
-        document.getElementById('lTitle').value = '';
-        document.getElementById('lBody').value = '';
-        alert("Tafiditra soa aman-tsara ary hitan'ny rehetra ny tononkira!");
-        loadAll();
-    }
-
-    async function postChat() {
-        let n = document.getElementById('cName').value.trim() || "Mpankafy Rap";
-        let m = document.getElementById('cMsg').value.trim();
-        if(!m) return alert("Soraty aloha ny hafatrao!");
-        await fetch(`${DB_URL}/chats.json`, { method: 'POST', body: JSON.stringify({ name: n, msg: m }) });
-        document.getElementById('cMsg').value = '';
-        loadAll();
-    }
-
-    loadAll();
-</script>
-
-</body>
-                                                                                              </html>
-                                                                                              
+    
