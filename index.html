@@ -7,154 +7,213 @@
     <style>
         * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; }
         body { background: #121212; color: #fff; margin: 0; padding-bottom: 135px; }
-        .top-pills { display: flex; gap: 8px; padding: 14px 14px 8px; position: sticky; top: 0; background: #121212; z-index: 50; overflow-x: auto; }
-        .pill { background: #2a2a2a; color: #fff; border: none; padding: 8px 14px; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap; }
-        .pill.active { background: #1ed760; color: #000; }
-        .section { display: none; padding: 10px 14px; }
-        .section.active { display: block; }
-        .grid-recent { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 20px; }
-        .recent-item { background: #2a2a2a; border-radius: 6px; display: flex; align-items: center; overflow: hidden; cursor: pointer; height: 54px; }
-        .recent-box { width: 54px; height: 54px; background: linear-gradient(135deg, #1ed760, #121212); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
-        .recent-title { padding: 0 8px; font-size: 12px; font-weight: 700; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-        h2 { font-size: 19px; margin: 16px 0 12px; font-weight: 700; }
-        .track-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #1f1f1f; }
-        .track-left { display: flex; align-items: center; gap: 12px; cursor: pointer; flex: 1; }
-        .track-img { width: 48px; height: 48px; border-radius: 6px; background: #282828; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; overflow: hidden; }
-        .track-img img { width: 100%; height: 100%; object-fit: cover; }
-        .track-info h4 { margin: 0; font-size: 14px; color: #fff; }
-        .track-info p { margin: 3px 0 0; font-size: 12px; color: #b3b3b3; }
-        .dl-btn { background: transparent; border: 1px solid #555; color: #1ed760; border-radius: 20px; padding: 6px 12px; font-size: 11px; font-weight: bold; text-decoration: none; }
-        .card { background: #181818; border-radius: 10px; padding: 14px; margin-bottom: 14px; }
-        input, textarea, select { width: 100%; padding: 11px; margin: 6px 0; border-radius: 6px; border: 1px solid #333; background: #242424; color: #fff; font-size: 14px; }
-        .btn-green { background: #1ed760; color: #000; border: none; padding: 12px; border-radius: 25px; font-weight: 700; width: 100%; margin-top: 8px; cursor: pointer; font-size: 14px; }
-        .lyric-card { background: #181818; border-left: 3px solid #1ed760; padding: 14px; border-radius: 8px; margin-bottom: 12px; }
-        .post-card { background: #181818; border-radius: 10px; padding: 12px; margin-bottom: 14px; }
-        .post-card img { width: 100%; border-radius: 8px; margin-top: 8px; max-height: 250px; object-fit: cover; }
-        .mini-player { position: fixed; bottom: 58px; left: 6px; right: 6px; background: #282828; border-radius: 8px; padding: 8px 12px; display: none; align-items: center; justify-content: space-between; z-index: 99; box-shadow: 0 4px 12px rgba(0,0,0,0.6); }
-        .mini-player.show { display: flex; }
-        .play-btn { background: none; border: none; color: #fff; font-size: 22px; cursor: pointer; padding: 4px 8px; }
-        .nav-bar { position: fixed; bottom: 0; width: 100%; background: #121212; display: flex; justify-content: space-around; padding: 8px 0; border-top: 1px solid #282828; z-index: 100; }
-        .nav-item { color: #b3b3b3; font-size: 10px; text-align: center; cursor: pointer; width: 25%; }
-        .nav-item.active { color: #fff; font-weight: bold; }
-        .nav-icon { font-size: 20px; display: block; margin-bottom: 2px; }
-        .status { text-align: center; color: #1ed760; font-size: 13px; margin-top: 6px; font-weight: bold; }
+        .top-bar { display: flex; align-items: center; gap: 8px; padding: 12px 14px; background: #121212; position: sticky; top: 0; z-index: 50; overflow-x: auto; }
+        .avatar { width: 32px; height: 32px; border-radius: 50%; background: #1ed760; color: #000; font-weight: bold; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 14px; }
+        .pill { background: #2a2a2a; color: #fff; border: none; padding: 7px 14px; border-radius: 20px; font-size: 13px; font-weight: 600; white-space: nowrap; }
+        .pill.on { background: #1ed760; color: #000; }
+        .page { display: none; padding: 10px 14px; }
+        .page.on { display: block; }
+        h2 { font-size: 20px; margin: 8px 0 14px; font-weight: 700; }
+        .spot-card { background: linear-gradient(180deg, #3b2d2a 0%, #1e1817 100%); border-radius: 12px; padding: 14px; margin-bottom: 14px; }
+        .spot-card.red { background: linear-gradient(180deg, #4a1c1c 0%, #1e1414 100%); }
+        .spot-top { display: flex; gap: 12px; align-items: center; }
+        .spot-cover { width: 72px; height: 72px; border-radius: 6px; background: #282828; object-fit: cover; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #1ed760; font-size: 12px; }
+        .spot-meta h3 { margin: 0; font-size: 15px; line-height: 1.3; }
+        .spot-meta p { margin: 4px 0 0; font-size: 12px; color: #b3b3b3; }
+        .spot-desc { font-size: 12px; color: #d0d0d0; margin: 10px 0; line-height: 1.4; }
+        .spot-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; }
+        .extrait-btn { background: rgba(255,255,255,0.12); color: #fff; border: none; padding: 7px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+        .plus-circle { width: 30px; height: 30px; border-radius: 50%; border: 1.5px solid #b3b3b3; display: flex; align-items: center; justify-content: center; color: #fff; text-decoration: none; font-size: 16px; }
+        .search-box { width: 100%; padding: 12px 14px; border-radius: 6px; border: none; background: #fff; color: #000; font-size: 14px; font-weight: 600; margin-bottom: 14px; }
+        .card { background: #181818; border-radius: 10px; padding: 14px; margin-bottom: 12px; }
+        input.inp, textarea, select { width: 100%; padding: 11px; margin: 6px 0; border-radius: 6px; border: 1px solid #333; background: #242424; color: #fff; font-size: 14px; }
+        .btn-green { background: #1ed760; color: #000; border: none; padding: 12px; border-radius: 25px; font-weight: 700; width: 100%; margin-top: 8px; font-size: 14px; }
+        .mini-player { position: fixed; bottom: 58px; left: 8px; right: 8px; background: #282828; border-radius: 8px; padding: 8px 12px; display: none; align-items: center; justify-content: space-between; z-index: 99; box-shadow: 0 4px 12px rgba(0,0,0,0.7); }
+        .nav { position: fixed; bottom: 0; width: 100%; background: linear-gradient(transparent, #000 25%); display: flex; padding: 8px 0 6px; z-index: 100; }
+        .nav-it { width: 25%; text-align: center; font-size: 10px; color: #b3b3b3; display: flex; flex-direction: column; align-items: center; gap: 3px; }
+        .nav-it.on { color: #fff; font-weight: 600; }
+        .nav-it svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; }
+        .nav-it.on svg { fill: #fff; stroke: #fff; }
     </style>
 </head>
 <body>
 
-<div class="top-pills">
-    <button class="pill active" onclick="filterSongs('ALL', this)">Tout</button>
-    <button class="pill" onclick="filterSongs('SINGLE', this)">Singles</button>
-    <button class="pill" onclick="filterSongs('ALBUM', this)">Albums</button>
-    <button class="pill" onclick="filterSongs('EP', this)">EP</button>
-    <button class="pill" onclick="navTo('tab-lyrics', document.getElementById('nav-lyr'))">Tononkira</button>
+<div class="top-bar">
+    <div class="avatar">Z</div>
+    <button class="pill on" onclick="fil('ALL',this)">Musique</button>
+    <button class="pill" onclick="fil('ALBUM',this)">Albums / EP</button>
+    <button class="pill" onclick="go('p3',document.getElementById('n3'))">Tononkira</button>
 </div>
 
-<div id="tab-home" class="section active">
-    <div class="grid-recent" id="recentGrid"></div>
-    <h2>Hira Rap Malagasy</h2>
-    <div id="songList"><p style="color:#b3b3b3; font-size:13px;">Maka ny hira...</p></div>
+<!-- 1. ACCUEIL -->
+<div id="p1" class="page on">
+    <h2>Rap Gasy ho anao</h2>
+    <div id="sList">Maka ny hira...</div>
 </div>
 
-<div id="tab-lyrics" class="section">
-    <h2>Tononkira (Lyrics)</h2>
-    <div id="lyricsList"></div>
+<!-- 2. RECHERCHER -->
+<div id="p2" class="page">
+    <h2>Rechercher</h2>
+    <input class="search-box" id="q" oninput="doSearch()" placeholder="🔍 Hira, mpanakanto, tononkira...">
+    <div id="resList"></div>
 </div>
 
-<div id="tab-social" class="section">
-    <h2>Vaovao, Sary & Resaka</h2>
-    <div id="postsList"></div>
+<!-- 3. BIBLIOTHÈQUE (TONONKIRA & POSTE) -->
+<div id="p3" class="page">
+    <h2>Bibliothèque & Tononkira</h2>
+    <div id="lList"></div>
+    <div id="pList"></div>
 </div>
 
-<div id="tab-create" class="section">
+<!-- 4. CRÉER (+) -->
+<div id="p4" class="page">
     <div class="card">
-        <h3 style="margin-top:0; color:#1ed760;">➕ Handefa Hira (Single / Album / EP)</h3>
-        <select id="mType">
-            <option value="SINGLE">Single</option>
-            <option value="ALBUM">Album</option>
-            <option value="EP">EP</option>
-        </select>
-        <input type="text" id="mTitle" placeholder="Lohatenin'ny hira (ohatra: Teny @Ny Lalako)">
-        <input type="text" id="mArtist" placeholder="Anaran'ny Mpanakanto (ohatra: Agrad)">
-        <input type="text" id="mCover" placeholder="Rohy Sary Pochette (tsy voatery)">
-        <input type="text" id="mUrl" placeholder="Rohy MP3 (Mediafire / Drive)">
-        <button class="btn-green" onclick="addSong()">Avoaka ny Hira</button>
-        <div id="stSong" class="status"></div>
+        <h4 style="color:#1ed760;margin:0 0 8px;">Handefa Single / Album / EP</h4>
+        <select id="mT"><option value="SINGLE">Single</option><option value="ALBUM">Album</option><option value="EP">EP</option></select>
+        <input class="inp" id="mN" placeholder="Lohatenin'ny hira">
+        <input class="inp" id="mA" placeholder="Mpanakanto">
+        <input class="inp" id="mC" placeholder="Rohy Sary Pochette (tsy voatery)">
+        <input class="inp" id="mU" placeholder="Rohy MP3">
+        <button class="btn-green" onclick="sendS()">Avoaka ny Hira</button>
+        <p id="st1" style="color:#1ed760;text-align:center;font-size:13px;"></p>
     </div>
-
     <div class="card">
-        <h3 style="margin-top:0; color:#1ed760;">✍️ Handatsaka Tononkira</h3>
-        <input type="text" id="lTitle" placeholder="Mpanakanto - Lohatenin'ny hira">
-        <textarea id="lBody" rows="4" placeholder="Soraty eto ny tononkira..."></textarea>
-        <button class="btn-green" onclick="addLyric()">Avoaka ny Tononkira</button>
-        <div id="stLyric" class="status"></div>
+        <h4 style="color:#1ed760;margin:0 0 8px;">Handatsaka Tononkira</h4>
+        <input class="inp" id="lN" placeholder="Mpanakanto - Lohateny">
+        <textarea id="lB" rows="4" placeholder="Tononkira..."></textarea>
+        <button class="btn-green" onclick="sendL()">Avoaka ny Tononkira</button>
+        <p id="st2" style="color:#1ed760;text-align:center;font-size:13px;"></p>
     </div>
-
     <div class="card">
-        <h3 style="margin-top:0; color:#1ed760;">📸 Handefa Sary na Hafatra</h3>
-        <input type="text" id="pAuthor" placeholder="Anaranao / Mpanakanto">
-        <input type="text" id="pImg" placeholder="Rohy Sary (tsy voatery)">
-        <input type="text" id="pText" placeholder="Soraty eto ny hafatra na vaovao...">
-        <button class="btn-green" onclick="addPost()">Avoaka ny Poste</button>
-        <div id="stPost" class="status"></div>
+        <h4 style="color:#1ed760;margin:0 0 8px;">Poste Sary & Vaovao</h4>
+        <input class="inp" id="pA" placeholder="Anaranao">
+        <input class="inp" id="pI" placeholder="Rohy Sary (tsy voatery)">
+        <input class="inp" id="pM" placeholder="Hafatra...">
+        <button class="btn-green" onclick="sendP()">Avoaka</button>
+        <p id="st3" style="color:#1ed760;text-align:center;font-size:13px;"></p>
     </div>
 </div>
 
-<div class="mini-player" id="miniPlayer">
-    <div style="overflow:hidden;">
-        <div id="pTitle" style="font-size:13px; font-weight:bold; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">-</div>
-        <div id="pArtist" style="font-size:11px; color:#b3b3b3;">ZazaRapTexto</div>
+<!-- MINI PLAYER SPOTIFY -->
+<div class="mini-player" id="plr">
+    <div>
+        <div id="pTitle" style="font-size:13px;font-weight:bold;">-</div>
+        <div id="pArt" style="font-size:11px;color:#b3b3b3;">ZazaRapTexto</div>
     </div>
-    <button class="play-btn" id="playToggle" onclick="toggleAudio()">▶</button>
-    <audio id="audioEl"></audio>
+    <button onclick="tog()" id="pBtn" style="background:none;border:none;color:#fff;font-size:20px;">▶</button>
+    <audio id="aud"></audio>
 </div>
 
-<div class="nav-bar">
-    <div class="nav-item active" onclick="navTo('tab-home', this)"><span class="nav-icon">🏠</span>Accueil</div>
-    <div class="nav-item" id="nav-lyr" onclick="navTo('tab-lyrics', this)"><span class="nav-icon">📝</span>Tononkira</div>
-    <div class="nav-item" onclick="navTo('tab-social', this)"><span class="nav-icon">📸</span>Poste/Resaka</div>
-    <div class="nav-item" onclick="navTo('tab-create', this)"><span class="nav-icon">➕</span>Créer</div>
+<!-- MENU AMBANY SPOTIFY SVG -->
+<div class="nav">
+    <div class="nav-it on" onclick="go('p1',this)">
+        <svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1V9.5z"/></svg>
+        <span>Accueil</span>
+    </div>
+    <div class="nav-it" onclick="go('p2',this)">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4.35-4.35"/></svg>
+        <span>Rechercher</span>
+    </div>
+    <div class="nav-it" id="n3" onclick="go('p3',this)">
+        <svg viewBox="0 0 24 24"><path d="M4 4v16M9 4v16M14 5l6 15"/></svg>
+        <span>Bibliothèque</span>
+    </div>
+    <div class="nav-it" onclick="go('p4',this)">
+        <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+        <span>Créer</span>
+    </div>
 </div>
 
 <script>
-    const DB = "https://firebaseio.com";
-    let allSongs = [];
+const DB = "https://zazaraptexto-default-rtdb." + "firebaseio.com";
+let songs = [], lyrics = [];
 
-    function navTo(id, el) {
-        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
-        if(el) el.classList.add('active');
-    }
+function go(id, el) {
+    document.querySelectorAll('.page').forEach(x => x.classList.remove('on'));
+    document.querySelectorAll('.nav-it').forEach(x => x.classList.remove('on'));
+    document.getElementById(id).classList.add('on');
+    if(el) el.classList.add('on');
+}
 
-    function playTrack(url, title, artist) {
-        let a = document.getElementById('audioEl');
-        document.getElementById('pTitle').innerText = title;
-        document.getElementById('pArtist').innerText = artist || 'Rap Gasy';
-        document.getElementById('miniPlayer').classList.add('show');
-        a.src = url;
-        a.play();
-        document.getElementById('playToggle').innerText = '⏸';
-    }
+function play(u, t, a) {
+    let au = document.getElementById('aud');
+    document.getElementById('pTitle').innerText = t;
+    document.getElementById('pArt').innerText = a || 'Rap Gasy';
+    document.getElementById('plr').style.display = 'flex';
+    au.src = u; au.play();
+    document.getElementById('pBtn').innerText = '⏸';
+}
 
-    function toggleAudio() {
-        let a = document.getElementById('audioEl');
-        if(a.paused) { a.play(); document.getElementById('playToggle').innerText = '⏸'; }
-        else { a.pause(); document.getElementById('playToggle').innerText = '▶'; }
-    }
+function tog() {
+    let au = document.getElementById('aud');
+    if(au.paused) { au.play(); document.getElementById('pBtn').innerText = '⏸'; }
+    else { au.pause(); document.getElementById('pBtn').innerText = '▶'; }
+}
 
-    function renderSongs(list) {
-        let g = document.getElementById('recentGrid');
-        let sList = document.getElementById('songList');
-        g.innerHTML = ''; sList.innerHTML = '';
-        if(!list.length) { sList.innerHTML = '<p style="color:#b3b3b3;">Mbola tsy misy hira. Tsindrio ny + Créer eo ambany!</p>'; return; }
-        list.slice(0, 6).forEach(s => {
-            g.innerHTML += `<div class="recent-item" onclick="playTrack('${s.url}','${s.title}','${s.artist}')"><div class="recent-box">🎵</div><div class="recent-title">${s.title}</div></div>`;
-        });
-        list.forEach(s => {
-            let im = s.cover ? `<img src="${s.cover}" onerror="this.style.display='none'">` : '🎵';
-            sList.innerHTML += `<div class="track-row"><div class="track-left" onclick="playTrack('${s.url}','${s.title}','${s.artist}')"><div class="track-img">${im}</div><div class="track-info"><h4>${s.title}</h4><p>${s.artist || 'Mpanakanto'} • ${s.type || 'Single'}</p></div></div><a class="dl-btn" href="${s.url}" download target="_blank">⬇ MP3</a></div>`;
-        });
-    }
+function showS(arr, targetId) {
+    let d = document.getElementById(targetId); d.innerHTML = '';
+    if(!arr.length) { d.innerHTML = '<p style="color:#b3b3b3;">Mbola tsy misy hira. Tsindrio ny + Créer eo ambany!</p>'; return; }
+    arr.forEach((s, idx) => {
+        let cls = idx % 2 === 1 ? 'spot-card red' : 'spot-card';
+        let img = s.c ? `<img class="spot-cover" src="${s.c}" onerror="this.style.display='none'">` : `<div class="spot-cover">${s.t || 'RAP'}</div>`;
+        d.innerHTML += `<div class="${cls}"><div class="spot-top">${img}<div class="spot-meta"><h3>${s.n}</h3><p>${s.a || 'Mpanakanto'} • ${s.t || 'Single'}</p></div></div><div class="spot-actions"><button class="extrait-btn" onclick="play('${s.u}','${s.n}','${s.a}')">▶ Henoy ny hira</button><a class="plus-circle" href="${s.u}" download>⬇</a></div></div>`;
+    });
+}
 
-                                                                                        
+function fil(t, b) {
+    document.querySelectorAll('.pill').forEach(x => x.classList.remove('on'));
+    b.classList.add('on');
+    go('p1', document.querySelector('.nav-it'));
+    showS(t === 'ALL' ? songs : songs.filter(x => x.t !== 'SINGLE'), 'sList');
+}
+
+function doSearch() {
+    let q = document.getElementById('q').value.toLowerCase();
+    let f = songs.filter(s => (s.n + ' ' + s.a).toLowerCase().includes(q));
+    showS(f, 'resList');
+}
+
+async function load() {
+    try {
+        let r1 = await fetch(DB + "/songs.json"); let d1 = await r1.json();
+        songs = d1 ? Object.values(d1).reverse() : []; showS(songs, 'sList'); showS(songs, 'resList');
+
+                let r2 = await fetch(DB + "/lyrics.json"); let d2 = await r2.json();
+        let l = document.getElementById('lList'); l.innerHTML = '';
+        if(d2) Object.values(d2).reverse().forEach(x => l.innerHTML += `<div class="card"><b style="color:#1ed760">${x.n}</b><p style="white-space:pre-line;font-size:14px;">${x.b}</p></div>`);
+
+        let r3 = await fetch(DB + "/posts.json"); let d3 = await r3.json();
+        let p = document.getElementById('pList'); p.innerHTML = '';
+        if(d3) Object.values(d3).reverse().forEach(x => p.innerHTML += `<div class="card"><b style="color:#1ed760">${x.a}</b><p style="font-size:14px;">${x.m}</p>${x.i ? `<img src="${x.i}" style="width:100%;border-radius:8px;">` : ''}</div>`);
+    } catch(e) { document.getElementById('sList').innerHTML = 'Erreur: ' + e.message; }
+}
+
+async function sendS() {
+    let n = document.getElementById('mN').value, u = document.getElementById('mU').value;
+    if(!n || !u) return;
+    document.getElementById('st1').innerText = 'Mandefa...';
+    await fetch(DB + "/songs.json", { method:'POST', body: JSON.stringify({ t: document.getElementById('mT').value, n: n, a: document.getElementById('mA').value, c: document.getElementById('mC').value, u: u }) });
+    document.getElementById('st1').innerText = '✅ Tafiditra!'; load();
+}
+
+async function sendL() {
+    let n = document.getElementById('lN').value, b = document.getElementById('lB').value;
+    if(!n || !b) return;
+    document.getElementById('st2').innerText = 'Mandefa...';
+    await fetch(DB + "/lyrics.json", { method:'POST', body: JSON.stringify({ n: n, b: b }) });
+    document.getElementById('st2').innerText = '✅ Tafiditra!'; load();
+}
+
+async function sendP() {
+    let m = document.getElementById('pM').value, i = document.getElementById('pI').value;
+    if(!m && !i) return;
+    document.getElementById('st3').innerText = 'Mandefa...';
+    await fetch(DB + "/posts.json", { method:'POST', body: JSON.stringify({ a: document.getElementById('pA').value || 'Rap Gasy', i: i, m: m }) });
+    document.getElementById('st3').innerText = '✅ Tafiditra!'; load();
+}
+
+load();
+</script>
+</body>
+</html>
+
