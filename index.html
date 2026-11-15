@@ -14,12 +14,13 @@
         .section.active { display: block; }
         .grid-recent { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 20px; }
         .recent-item { background: #2a2a2a; border-radius: 6px; display: flex; align-items: center; overflow: hidden; cursor: pointer; height: 54px; }
-        .recent-item img { width: 54px; height: 54px; object-fit: cover; background: #333; }
+        .recent-box { width: 54px; height: 54px; background: linear-gradient(135deg, #1ed760, #121212); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
         .recent-title { padding: 0 8px; font-size: 12px; font-weight: 700; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
         h2 { font-size: 19px; margin: 16px 0 12px; font-weight: 700; }
-        .track-row { display: flex; align-items: center; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #1f1f1f; }
+        .track-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #1f1f1f; }
         .track-left { display: flex; align-items: center; gap: 12px; cursor: pointer; flex: 1; }
-        .track-img { width: 50px; height: 50px; border-radius: 4px; object-fit: cover; background: #282828; }
+        .track-img { width: 48px; height: 48px; border-radius: 6px; background: #282828; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; overflow: hidden; }
+        .track-img img { width: 100%; height: 100%; object-fit: cover; }
         .track-info h4 { margin: 0; font-size: 14px; color: #fff; }
         .track-info p { margin: 3px 0 0; font-size: 12px; color: #b3b3b3; }
         .dl-btn { background: transparent; border: 1px solid #555; color: #1ed760; border-radius: 20px; padding: 6px 12px; font-size: 11px; font-weight: bold; text-decoration: none; }
@@ -29,12 +30,10 @@
         .lyric-card { background: #181818; border-left: 3px solid #1ed760; padding: 14px; border-radius: 8px; margin-bottom: 12px; }
         .post-card { background: #181818; border-radius: 10px; padding: 12px; margin-bottom: 14px; }
         .post-card img { width: 100%; border-radius: 8px; margin-top: 8px; max-height: 250px; object-fit: cover; }
-        .mini-player { position: fixed; bottom: 56px; left: 6px; right: 6px; background: #282828; border-radius: 8px; padding: 8px 12px; display: none; align-items: center; justify-content: space-between; z-index: 99; box-shadow: 0 4px 12px rgba(0,0,0,0.6); }
+        .mini-player { position: fixed; bottom: 58px; left: 6px; right: 6px; background: #282828; border-radius: 8px; padding: 8px 12px; display: none; align-items: center; justify-content: space-between; z-index: 99; box-shadow: 0 4px 12px rgba(0,0,0,0.6); }
         .mini-player.show { display: flex; }
-        .mini-left { display: flex; align-items: center; gap: 10px; overflow: hidden; }
-        .mini-left img { width: 40px; height: 40px; border-radius: 4px; object-fit: cover; }
         .play-btn { background: none; border: none; color: #fff; font-size: 22px; cursor: pointer; padding: 4px 8px; }
-        .nav-bar { position: fixed; bottom: 0; width: 100%; background: rgba(18,18,18,0.96); display: flex; justify-content: space-around; padding: 8px 0; border-top: 1px solid #282828; z-index: 100; }
+        .nav-bar { position: fixed; bottom: 0; width: 100%; background: #121212; display: flex; justify-content: space-around; padding: 8px 0; border-top: 1px solid #282828; z-index: 100; }
         .nav-item { color: #b3b3b3; font-size: 10px; text-align: center; cursor: pointer; width: 25%; }
         .nav-item.active { color: #fff; font-weight: bold; }
         .nav-icon { font-size: 20px; display: block; margin-bottom: 2px; }
@@ -51,26 +50,22 @@
     <button class="pill" onclick="navTo('tab-lyrics', document.getElementById('nav-lyr'))">Tononkira</button>
 </div>
 
-<!-- 1. ACCUEIL (SPOTIFY STYLE) -->
 <div id="tab-home" class="section active">
     <div class="grid-recent" id="recentGrid"></div>
     <h2>Hira Rap Malagasy</h2>
     <div id="songList"><p style="color:#b3b3b3; font-size:13px;">Maka ny hira...</p></div>
 </div>
 
-<!-- 2. TONONKIRA -->
 <div id="tab-lyrics" class="section">
     <h2>Tononkira (Lyrics)</h2>
     <div id="lyricsList"></div>
 </div>
 
-<!-- 3. POSTE SARY & RESAKA -->
 <div id="tab-social" class="section">
     <h2>Vaovao, Sary & Resaka</h2>
     <div id="postsList"></div>
 </div>
 
-<!-- 4. CRÉER / HANDEFA (SINGLE, ALBUM, EP, TONONKIRA, SARY) -->
 <div id="tab-create" class="section">
     <div class="card">
         <h3 style="margin-top:0; color:#1ed760;">➕ Handefa Hira (Single / Album / EP)</h3>
@@ -81,7 +76,7 @@
         </select>
         <input type="text" id="mTitle" placeholder="Lohatenin'ny hira (ohatra: Teny @Ny Lalako)">
         <input type="text" id="mArtist" placeholder="Anaran'ny Mpanakanto (ohatra: Agrad)">
-        <input type="text" id="mCover" placeholder="Rohy Sary Pochette (https://...jpg)">
+        <input type="text" id="mCover" placeholder="Rohy Sary Pochette (tsy voatery)">
         <input type="text" id="mUrl" placeholder="Rohy MP3 (Mediafire / Drive)">
         <button class="btn-green" onclick="addSong()">Avoaka ny Hira</button>
         <div id="stSong" class="status"></div>
@@ -105,20 +100,15 @@
     </div>
 </div>
 
-<!-- MINI PLAYER AMBANY TOY NY SPOTIFY -->
 <div class="mini-player" id="miniPlayer">
-    <div class="mini-left">
-        <img id="pCover" src="https://placeholder.com">
-        <div style="overflow:hidden;">
-            <div id="pTitle" style="font-size:13px; font-weight:bold; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">-</div>
-            <div id="pArtist" style="font-size:11px; color:#b3b3b3;">ZazaRapTexto</div>
-        </div>
+    <div style="overflow:hidden;">
+        <div id="pTitle" style="font-size:13px; font-weight:bold; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">-</div>
+        <div id="pArtist" style="font-size:11px; color:#b3b3b3;">ZazaRapTexto</div>
     </div>
     <button class="play-btn" id="playToggle" onclick="toggleAudio()">▶</button>
     <audio id="audioEl"></audio>
 </div>
 
-<!-- MENU AMBANY SPOTIFY -->
 <div class="nav-bar">
     <div class="nav-item active" onclick="navTo('tab-home', this)"><span class="nav-icon">🏠</span>Accueil</div>
     <div class="nav-item" id="nav-lyr" onclick="navTo('tab-lyrics', this)"><span class="nav-icon">📝</span>Tononkira</div>
@@ -127,8 +117,7 @@
 </div>
 
 <script>
-    const DB = "https://zazaraptexto-default-rtdbfirebaseio.com";
-    const DEF_IMG = "https://placeholder.com";
+    const DB = "https://firebaseio.com";
     let allSongs = [];
 
     function navTo(id, el) {
@@ -138,11 +127,10 @@
         if(el) el.classList.add('active');
     }
 
-    function playTrack(url, title, artist, cover) {
+    function playTrack(url, title, artist) {
         let a = document.getElementById('audioEl');
         document.getElementById('pTitle').innerText = title;
         document.getElementById('pArtist').innerText = artist || 'Rap Gasy';
-        document.getElementById('pCover').src = cover || DEF_IMG;
         document.getElementById('miniPlayer').classList.add('show');
         a.src = url;
         a.play();
@@ -161,17 +149,12 @@
         g.innerHTML = ''; sList.innerHTML = '';
         if(!list.length) { sList.innerHTML = '<p style="color:#b3b3b3;">Mbola tsy misy hira. Tsindrio ny + Créer eo ambany!</p>'; return; }
         list.slice(0, 6).forEach(s => {
-            let img = s.cover || DEF_IMG;
-            g.innerHTML += `<div class="recent-item" onclick="playTrack('${s.url}','${s.title}','${s.artist}','${img}')"><img src="${img}" onerror="this.src='${DEF_IMG}'"><div class="recent-title">${s.title}</div></div>`;
+            g.innerHTML += `<div class="recent-item" onclick="playTrack('${s.url}','${s.title}','${s.artist}')"><div class="recent-box">🎵</div><div class="recent-title">${s.title}</div></div>`;
         });
-    document.getElementById('pImg').value.trim();
-if(!tx && !im) { st.innerText = "Asio sary na hafatra!"; return; }
-st.innerText = "Mandefa...";
-await fetch(${DB}/posts.json, { method:'POST', body: JSON.stringify({
-author: document.getElementById('pAuthor').value.trim() || "Mpankafy Rap",
-img: im, text: tx
-})});
-document.getElementById('pText').value = ''; document.getElementById('pImg').value = '';
-st.innerText = "✅ Lasa ny poste!"; loadData();
-}
-loadData();
+        list.forEach(s => {
+            let im = s.cover ? `<img src="${s.cover}" onerror="this.style.display='none'">` : '🎵';
+            sList.innerHTML += `<div class="track-row"><div class="track-left" onclick="playTrack('${s.url}','${s.title}','${s.artist}')"><div class="track-img">${im}</div><div class="track-info"><h4>${s.title}</h4><p>${s.artist || 'Mpanakanto'} • ${s.type || 'Single'}</p></div></div><a class="dl-btn" href="${s.url}" download target="_blank">⬇ MP3</a></div>`;
+        });
+    }
+
+                                                                                        
